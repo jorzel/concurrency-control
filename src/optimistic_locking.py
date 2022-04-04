@@ -52,7 +52,6 @@ def increment_example(Session, example_id):
         example = session.query(Example).get(example_id)
         logger.info(f"{example} instance retrieved")
         time.sleep(1)
-        logger.info(f"{example} instance incremented")
         stmt = (
             Example.__table__.update()
             .values(
@@ -62,6 +61,7 @@ def increment_example(Session, example_id):
             .where(Example.version_id == example.version_id, Example.id == example_id)
         )
         results = session.execute(stmt)
+        logger.info(f"{example} instance incremented")
         session.flush()
         session.commit()
         if results.rowcount != 1:
@@ -76,3 +76,14 @@ time.sleep(5)
 with Session() as session:
     example = session.query(Example).get(example_id)
     logger.info(f"{example} state")
+
+"""
+2022-04-04 22:43:49,436 [INFO] Call for increment example_id=1
+2022-04-04 22:43:49,437 [INFO] Call for increment example_id=1
+2022-04-04 22:43:49,438 [INFO] Example(id=1, important_counter=0, version_id=0) instance retrieved
+2022-04-04 22:43:49,444 [INFO] Example(id=1, important_counter=0, version_id=0) instance retrieved
+2022-04-04 22:43:50,439 [INFO] Example(id=1, important_counter=0, version_id=0) instance incremented
+2022-04-04 22:43:50,445 [INFO] Example(id=1, important_counter=0, version_id=0) instance incremented
+2022-04-04 22:43:50,454 [ERROR] Version mismatch for example_id=1, cannot update
+2022-04-04 22:43:54,443 [INFO] Example(id=1, important_counter=1, version_id=1) state
+"""

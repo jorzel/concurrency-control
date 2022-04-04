@@ -68,3 +68,15 @@ time.sleep(5)
 with Session() as session:
     example = session.query(Example).get(example_id)
     logger.info(f"{example} state")
+
+
+"""
+2022-04-04 22:44:28,142 [INFO] Call for increment example_id=2
+2022-04-04 22:44:28,143 [INFO] Call for increment example_id=2
+2022-04-04 22:44:28,143 [INFO] Example(id=2, important_counter=0) instance retrieved
+2022-04-04 22:44:28,147 [INFO] Example(id=2, important_counter=0) instance retrieved
+2022-04-04 22:44:29,144 [INFO] Example(id=2, important_counter=1) instance incremented
+2022-04-04 22:44:29,148 [INFO] Example(id=2, important_counter=1) instance incremented
+2022-04-04 22:44:29,151 [ERROR] Concurrent update error
+2022-04-04 22:44:33,152 [INFO] Example(id=2, important_counter=1) state
+"""

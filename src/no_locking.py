@@ -62,3 +62,14 @@ time.sleep(5)
 with Session() as session:
     example = session.query(Example).get(example_id)
     logger.info(f"{example} state")
+
+
+"""
+2022-04-04 22:42:45,889 [INFO] Call for increment example_id=1
+2022-04-04 22:42:45,890 [INFO] Call for increment example_id=1
+2022-04-04 22:42:45,890 [INFO] Example(id=1, important_counter=0) instance retrieved
+2022-04-04 22:42:45,894 [INFO] Example(id=1, important_counter=0) instance retrieved
+2022-04-04 22:42:46,892 [INFO] Example(id=1, important_counter=1) instance incremented
+2022-04-04 22:42:46,896 [INFO] Example(id=1, important_counter=1) instance incremented
+2022-04-04 22:42:50,899 [INFO] Example(id=1, important_counter=1) state
+"""

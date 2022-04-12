@@ -15,8 +15,8 @@ def increment_example(session_cls, example_id):
             logger.info(f"{example} instance retrieved")
             time.sleep(1)
             example.important_counter += 1
-            logger.info(f"{example} instance incremented")
             session.commit()
+            logger.info(f"{example} instance incremented")
         except OperationalError:
             logger.error("Row is locked, cannot fetch record")
 
@@ -24,12 +24,10 @@ def increment_example(session_cls, example_id):
 run_experiment(increment_example, Session)
 
 """
-2022-04-04 22:44:28,142 [INFO] Call for increment example_id=2
-2022-04-04 22:44:28,143 [INFO] Call for increment example_id=2
-2022-04-04 22:44:28,143 [INFO] Example(id=2, important_counter=0) instance retrieved
-2022-04-04 22:44:28,147 [INFO] Example(id=2, important_counter=0) instance retrieved
-2022-04-04 22:44:29,144 [INFO] Example(id=2, important_counter=1) instance incremented
-2022-04-04 22:44:29,148 [INFO] Example(id=2, important_counter=1) instance incremented
-2022-04-04 22:44:29,151 [ERROR] Concurrent update error
-2022-04-04 22:44:33,152 [INFO] Example(id=2, important_counter=1) state
+2022-04-12 11:48:42,676 [INFO] Call for increment example_id=1
+2022-04-12 11:48:42,677 [INFO] Call for increment example_id=1
+2022-04-12 11:48:42,678 [INFO] Example(id=1, important_counter=0, version_id=0) instance retrieved
+2022-04-12 11:48:42,681 [ERROR] Row is locked, cannot fetch record
+2022-04-12 11:48:43,693 [INFO] Example(id=1, important_counter=1, version_id=0) instance incremented
+2022-04-12 11:48:47,684 [INFO] Example(id=1, important_counter=1, version_id=0) state
 """

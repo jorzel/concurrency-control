@@ -10,8 +10,8 @@ def increment_example(session_cls, example_id):
         logger.info(f"{example} instance retrieved")
         time.sleep(1)
         example.important_counter += 1
-        logger.info(f"{example} instance incremented")
         session.commit()
+        logger.info(f"{example} instance incremented")
 
 
 run_experiment(increment_example, Session)

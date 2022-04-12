@@ -14,15 +14,17 @@ def increment_example(session_cls, example_id):
         example = session.query(Example).get(example_id)
         logger.info(f"{example} instance retrieved")
         time.sleep(1)
-        example.important_counter += 1
+        # example.important_counter += 1
+        session.add(Example())
         logger.info(f"{example} instance incremented")
         try:
             session.commit()
-        except OperationalError:
-            logger.error("Concurrent update error")
+        except OperationalError as e:
+            logger.error(f"Concurrent update error: {e}")
 
 
 run_experiment(increment_example, Session)
+
 
 """
 2022-04-04 22:44:28,142 [INFO] Call for increment example_id=2

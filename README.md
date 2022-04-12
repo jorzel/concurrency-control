@@ -28,8 +28,8 @@ What result do you expect?
 
 ## Optimistic locking
 - additional `version_id` column in a model, object can be updated if only its `version_id` is correct
+- `REPEATABLE READS` isolation level
 
 ## Pessimistic locking
-- `REPEATABLE READS` isolation level
 - `SELECT FOR UPDATE NO WAIT`
 - `SELECT FOR UPDATE`
